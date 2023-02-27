@@ -1,0 +1,14 @@
+<% if (success.length) {%>
+    <div class="mt-2 alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+        <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>;
+
+
+        <% if (error.length) {%>
+            <div class="mt-2 alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <%= error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>

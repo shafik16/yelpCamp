@@ -1,0 +1,82 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row mt-0">
+
+        <div class="col-lg-6">
+
+            <div class="card mb-5">
+                <div id="campgroundCarousel" class="carousel slide">
+                    <div class="carousel-inner card-img-top">
+                        <% campground.images.forEach((img,i)=> {%>
+                            <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+                                <img src="<%= img.url %>" class="d-block w-100" style="height:420px; object-fit: cover; object-position: center;" crossorigin>
+                            </div>
+    
+                            <%}) %>
+                                <% if (campground.images.length> 1) {%>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel"
+                                        data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel"
+                                        data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                    <% } %>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Campground: <%= campground.title %>
+                    </h5>
+                    <p class="card-text text-secondary">
+                        Location: <%= campground.location %>
+
+                    </p>
+                    <p class="card-text">
+                        <%= campground.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Price: $<%= campground.price %> /night
+                    </li>
+                    <li class="list-group-item">Submit by: <%= campground.author.username %>
+                    </li>
+                </ul>
+                <div class="card-footer text-secondary">
+                    Last modified: 2 days ago
+                </div>
+            </div>
+
+            <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                <div class="d-flex justify-content-between align-items-center">
+                    <% if (currentUser && campground.author.equals(currentUser)) {%>
+                        <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning mb-5">Edit
+                            Campground</a>
+                        <button class="btn btn-dark mb-5 align-items-center "> <svg xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                            </svg> </button>
+                        <% } %>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-3">
+                <div id='map' class=""></div>
+
+            </div>
+            <%- include('../partials/reviews') %>
+        </div>
+
+    </div>
+    <script>
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+        const campground = <%- JSON.stringify(campground) %>;
+    </script>
+    <script src="/js/mapShow.js">    </script>

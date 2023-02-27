@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+    <div id="cluster-map"></div>
+
+    <div class="my-3 d-flex justify-content-between align-items-end">
+        <p class="h1">Campgrounds</p>
+        <a href="./campgrounds/new" class="text-decoration-none text-dark h5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z">
+                </path>
+            </svg>
+            Add New Campground
+        </a>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+        <% for (let c of campgrounds) {%>
+            <div class="col">
+                <div class="card">
+                    <div class="card-img-top">
+                        <% if (c.images.length) {%>
+                            <img class="d-block w-100" src="<%= c.images[0].url %>" alt="" style="height: 420px; object-fit: cover; object-position: center;" crossorigin>
+                            <% } else {%>
+                                <img class="d-block w-100"
+                                    src="https://res.cloudinary.com/dlvfbopo7/image/upload/v1677409082/YelpCamp/bp2xatftk5bnskipibys.jpg" alt="" crossorigin>
+                                <% } %>
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <%= c.title %>
+                        </h4>
+                        <span class="text-secondary">
+                            <%= c.location %>
+                        </span>
+                        <p class="card-text">
+                            <%= c.description %>
+                        </p>
+                        <a class="btn btn-outline-primary" href="./campgrounds/<%= c._id %>">Visit
+                            Campground</a>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+    </div>
+    <script>
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+        const campgrounds = { features: <%- JSON.stringify(campgrounds) %>};
+    </script>
+    <script src="/js/mapIndex.js"></script>

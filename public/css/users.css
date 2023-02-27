@@ -1,0 +1,19 @@
+h1 {
+    color: #ffb813;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 3.4rem;
+    font-weight: bolder;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-top: 16vh;
+    padding-left: 1.5vh;
+}
+
+.headerku {
+    height: 24vh;
+    background-image:  url('https://img.freepik.com/free-vector/yellow-low-poly-with-geometric-line-background_1409-1899.jpg?w=2000&t=st=1677407715~exp=1677408315~hmac=a6286b67fc3f2525833d9ff2d1f7285820de269447ea0d1090ccf5a92e2d7ea4');
+    background-size: cover;
+    background-position: center;
+    text-shadow: 0 0.05rem 0.1rem rgba(247, 246, 246, 0.7);
+}
+
